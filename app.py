@@ -142,10 +142,24 @@ def query(payload):
 
 st.title('Amazon Reviews Analysis')
 
-product_page_url = st.text_input('Enter the Amazon product page URL')
+# Initialize session state for managing the app's state
+if 'page' not in st.session_state:
+    st.session_state.page = 'input'
 
-if st.button('Analyze'):
-    if product_page_url:
+if st.session_state.page == 'input':
+    product_page_url = st.text_input('Enter the Amazon product page URL')
+    
+    if st.button('Analyze'):
+        if product_page_url:
+            st.session_state.product_page_url = product_page_url
+            st.session_state.page = 'analysis'
+            st.experimental_rerun()
+        else:
+            st.error("Please enter a valid URL")
+
+if st.session_state.page == 'analysis':
+    product_page_url = st.session_state.product_page_url
+    with st.spinner('Fetching reviews...'):
         reviewlist = []
         review_page_url = get_amazon_review_link(product_page_url)
         soup = get_soup(review_page_url)
@@ -230,12 +244,32 @@ if st.button('Analyze'):
         words_freq = [(word, sum_words[0, idx]) for word, idx in cv.vocabulary_.items()]
         words_freq = sorted(words_freq, key=lambda x: x[1], reverse=True)
         frequency = pd.DataFrame(words_freq, columns=["word", "freq"])
-        fig, ax = plt.subplots()
-        plt.style.use("fivethirtyeight")
-        color = plt.cm.ocean(np.linspace(0, 1, 10))
-        frequency.head(10).plot(x="word", y="freq", kind="bar", color=color, ax=ax)
-        plt.title("Most Frequently Occurring Words - Top 10")
+
+        # Improved color palette using seaborn
+        color_palette = sns.color_palette("Set2", 10)
+
+        fig, ax = plt.subplots(figsize=(10, 6))
+        ax.set_facecolor('white')
+        fig.patch.set_facecolor('white')
+
+        # Use the color palette in the bar plot
+        bars = frequency.head(10).plot(
+            x="word", y="freq", kind="barh", color=color_palette, ax=ax, legend=False, edgecolor="black"
+        )
+
+        # Adding text annotations
+        for i, (word, freq) in enumerate(zip(frequency.head(10)['word'], frequency.head(10)['freq'])):
+            ax.text(freq, i, f'{freq}', va='center', ha='left', fontsize=10, color='black')
+
+        # Customizing the plot
+        ax.set_xlabel("Frequency")
+        ax.set_ylabel("Words")
+        ax.set_title("Most Frequently Occurring Words - Top 10")
+        ax.invert_yaxis()
+        ax.grid(False)
         plt.tight_layout()
+
+        # Displaying the plot using streamlit
         st.pyplot(fig)
         plt.close()
 
@@ -291,7 +325,7 @@ if st.button('Analyze'):
         labels = ["Positive", "Neutral", "Negative"]
         sizes = [Positive_reviews, Neutral_reviews, Negative_reviews]
         colors = sns.color_palette("pastel")[0:3]
-        fig, ax = plt.subplots()
+        fig, ax = plt.subplots(figsize=(8, 8))
         wedges, texts, autotexts = ax.pie(
             sizes,
             labels=labels,
@@ -347,5 +381,9 @@ if st.button('Analyze'):
 
         st.subheader("Summarized Negative Reviews")
         st.write(neg_sum["summary_text"])
-    else:
-        st.error("Please enter a valid URL")
+
+        if st.button('Back'):
+            st.session_state.page = 'input'
+            st.session_state.product_page_url = None
+            st.experimental_rerun()
+              
