@@ -37,6 +37,30 @@ def get_soup(url):
     soup = bs(r.text, "html.parser")
     return soup
 
+# Function to get review page link
+def get_amazon_review_link(product_page_url):
+    # Send a request to the product page
+    response = requests.get(product_page_url, headers=HEADERS)
+    
+    # Check if the request was successful
+    if response.status_code != 200:
+        raise Exception(f"Failed to load page with status code {response.status_code}")
+    
+    # Parse the HTML content
+    soup = BeautifulSoup(response.content, 'html.parser')
+    
+    # Find the link to the reviews page
+    review_link_tag = soup.find('a', {'data-hook': 'see-all-reviews-link-foot'})
+    
+    if review_link_tag:
+        review_link = review_link_tag.get('href')
+        # Construct the full URL if necessary
+        if review_link.startswith('/'):
+            review_link = 'https://www.amazon.in' + review_link
+        return review_link
+    else:
+        raise Exception("Could not find the review link on the product page.")
+
 def get_reviews(soup):
     reviewlist = []
     reviews = soup.find_all("div", {"data-hook": "review"})
@@ -118,7 +142,8 @@ def query(payload):
 
 st.title('Amazon Reviews Analysis')
 
-review_page_url = st.text_input('Enter the Amazon product review page URL')
+product_page_url = st.text_input('Enter the Amazon product page URL')
+review_page_url = get_amazon_review_link(product_page_url)
 
 if st.button('Analyze'):
     if review_page_url:
