@@ -146,6 +146,11 @@ st.title('Amazon Reviews Analysis')
 if 'page' not in st.session_state:
     st.session_state.page = 'input'
 
+# Function to switch back to input page
+def switch_to_input():
+    st.session_state.page = 'input'
+    st.session_state.product_page_url = None
+
 if st.session_state.page == 'input':
     product_page_url = st.text_input('Enter the Amazon product page URL')
     
@@ -157,7 +162,10 @@ if st.session_state.page == 'input':
         else:
             st.error("Please enter a valid URL")
 
-if st.session_state.page == 'analysis':
+elif st.session_state.page == 'analysis':
+    if st.button('Back', on_click=switch_to_input):
+        st.stop()  # Stop further execution if 'Back' is clicked
+
     product_page_url = st.session_state.product_page_url
     with st.spinner('Fetching reviews...'):
         reviewlist = []
@@ -381,9 +389,4 @@ if st.session_state.page == 'analysis':
 
         st.subheader("Summarized Negative Reviews")
         st.write(neg_sum["summary_text"])
-
-        if st.button('Back'):
-            st.session_state.page = 'input'
-            st.session_state.product_page_url = None
-            st.experimental_rerun()
-              
+    
