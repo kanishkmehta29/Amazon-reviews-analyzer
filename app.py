@@ -47,7 +47,7 @@ def get_amazon_review_link(product_page_url):
         raise Exception(f"Failed to load page with status code {response.status_code}")
     
     # Parse the HTML content
-    soup = BeautifulSoup(response.content, 'html.parser')
+    soup = bs(response.content, 'html.parser')
     
     # Find the link to the reviews page
     review_link_tag = soup.find('a', {'data-hook': 'see-all-reviews-link-foot'})
