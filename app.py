@@ -145,7 +145,7 @@ st.title('Amazon Reviews Analysis')
 product_page_url = st.text_input('Enter the Amazon product page URL')
 
 if st.button('Analyze'):
-    if review_page_url:
+    if product_page_url:
         reviewlist = []
         review_page_url = get_amazon_review_link(product_page_url)
         soup = get_soup(review_page_url)
