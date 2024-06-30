@@ -8,7 +8,6 @@
 - Basic Overview
 - Data Collection and Preprocessing
 - Analytical Metrics
-- Results and Testing
 - Deployment
 
 # BASIC OVERVIEW :
