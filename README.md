@@ -33,26 +33,42 @@
   
 # Analytical Metrics :
 
-* **Rating Distribution**: It shows how many people rated the product at each level (1 to 5 stars), giving a more nuanced view than the average rating alone.A wide spread of ratings might suggest inconsistent quality or experiences, while a tight cluster around a high rating indicates general satisfaction.
-* **Most Frequent Occurring Words**: Frequent words often highlight important features or qualities of the product that matter to users. Potential buyers can quickly understand what aspects of the product are most talked about, helping them make informed decisions.
-* **Word Cloud for positive and negative reviews**:
+* **Rating Distribution**: It shows how many people rated the product at each level (1 to 5 stars), giving a more nuanced view than the average rating alone.A wide spread of ratings might suggest inconsistent quality or experiences, while a tight cluster around a high rating indicates general satisfaction.<br>
+  <p align="center">
+  <img src="Pics/Ratings_Distribution.png" alt="Ratings Distribution" style="width:50%; height:auto;">
+  </p>
+  <br>
+* **Most Frequent Occurring Words**: Frequent words often highlight important features or qualities of the product that matter to users. Potential buyers can quickly understand what aspects of the product are most talked about, helping them make informed decisions.<br>
+  <p align="center">
+  <img src="Pics/Most_Frequent_Words.png" alt="Most_Frequent_Words" style="width:50%; height:auto;">
+  </p>
+  <br>
+* **Word Cloud for positive and negative reviews**:<br><br>
   - A **Word Cloud** is a visual representation of a collection of words, where the size of each word indicates its frequency or importance within the text or dataset being analyzed.
   - Separate word clouds for positive and negative reviews can clarify whether frequently occurring terms are positive or negative. Positive word clouds can show features customers appreciate, while negative word clouds can highlight common issues.
-* **Sentiment Analysis**: Sentiment Analysis can help us decipher the mood and emotions of general public and gather insightful information regarding the context. Sentiment Analysis is a process of analyzing data and classifying it based on the need of the research.These sentiments can be used for a better understanding of various events and impact caused by it. By analysing these sentiments, we may find what people like, what they want and what their major concerns are.<br>
-**TextBlob** is a python library for Natural Language Processing (NLP), which supports complex analysis and operations on textual data.TextBlob returns polarity and subjectivity of a sentence. Polarity lies between [-1,1], -1 defines a negative sentiment and 1 defines a positive sentiment.  Subjectivity lies between [0,1]. Subjectivity quantifies the amount of personal opinion and factual information contained in the text. The higher subjectivity means that the text contains personal opinion rather than factual information. 
-* **categorical_crossentropy**: Categorical cross-entropy is used when true labels are one-hot encoded. Hence we use them.<br><br>
-![Alt text](model_plot.png)<br><br>
-# :bar_chart:  RESULTS AND TESTING :
-![Alt text](TEST1.png)
-<br>
-<br>
-![Alt text](TEST2.png)
-<br>
-<br>
+  <p align="center">
+  <img src="Pics/Word_Cloud.png" alt="Word_Cloud" style="width:80%; height:auto;">
+  </p>
+  <br>
+* **Sentiment Analysis**: Sentiment Analysis can help us decipher the mood and emotions of general public and gather insightful information regarding the context. Sentiment Analysis is a process of analyzing data and classifying it based on the need of the research.These sentiments can be used for a better understanding of various events and impact caused by it. By analysing these sentiments, we may find what people like, what they want and what their major concerns are.<br><br>
+  - **TextBlob** is a python library for Natural Language Processing (NLP), which supports complex analysis and operations on textual data.TextBlob returns polarity and subjectivity of a sentence.
+  - **Polarity** refers to the emotional tone of the text, indicating how positive or negative it is. It ranges from -1 (completely negative) to 1 (completely positive), with 0 being neutral.
+  - **Subjectivity** measures how much of the text is based on personal opinions versus factual information. It ranges from 0 (completely objective) to 1 (completely subjective). A high subjectivity score means the text is more opinion-based, while a low score means it contains more factual content.<br>
+  <p align="center">
+  <img src="Pics/Sentiment_distribution.png" alt="Sentiment_distribution" style="width:50%; height:auto;">
+  </p>
+  <p align="center">
+  <img src="Pics/Polarity_and_Subjectivity.png" alt="Polarity_and_Subjectivity" style="width:80%; height:auto;">
+  </p>
+  <br>
+* **Reviews Summary**: We collected the Positive reviews (rating >= 4) and Negative reviews (rating <= 3) and concatonated their titles and passed to the **Facebook's BART-Large-CNN** Model to produce two different summaries.<br><br>
+  <p align="center">
+  <img src="Pics/Summarized_Reviews.png" alt="Summarized_Reviews" style="width:80%; height:auto;">
+  </p>
 
 # Deployment
 
-Deployed on Streamlit. Check it out! : https://automated-research-paper-categorizer.streamlit.app
+Deployed on Streamlit. Check it out! : https://amazon-reviews-analyzer.streamlit.app
 
 # Team:
 
