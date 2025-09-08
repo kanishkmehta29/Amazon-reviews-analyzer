@@ -18,12 +18,48 @@ import streamlit as st
 from datetime import datetime
 import string
 from urllib.parse import urlparse
+from io import BytesIO
+
+try:
+    import google.generativeai as genai
+    GEMINI_AVAILABLE = True
+except ImportError:
+    GEMINI_AVAILABLE = False
+    st.warning("Google Generative AI library not available. Install with: pip install google-generativeai")
+
+try:
+    from transformers import pipeline
+    TRANSFORMERS_AVAILABLE = True
+except ImportError:
+    TRANSFORMERS_AVAILABLE = False
 
 punctuation = string.punctuation
 
-API_URL = "https://api-inference.huggingface.co/models/facebook/bart-large-cnn"
-
-summary_headers = {"Authorization": "Bearer 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"}
+# Initialize Gemini API
+@st.cache_resource
+def init_gemini():
+    """Initialize Gemini API with user's API key"""
+    if not GEMINI_AVAILABLE:
+        return None
+    
+    # Get API key from Streamlit secrets or user input
+    api_key = st.secrets.get("GEMINI_API_KEY") if hasattr(st, 'secrets') and "GEMINI_API_KEY" in st.secrets else None
+    
+    if not api_key:
+        # Ask user for API key if not in secrets
+        api_key = st.sidebar.text_input("Enter your Gemini API Key:", type="password", 
+                                       help="Get your free API key from https://makersuite.google.com/app/apikey")
+        if not api_key:
+            st.sidebar.warning("Please enter your Gemini API key to use summarization feature.")
+            return None
+    
+    try:
+        genai.configure(api_key=api_key)
+        model = genai.GenerativeModel('gemini-1.5-flash')
+        return model
+    except Exception as e:
+        st.error(f"Error initializing Gemini API: {e}")
+        return None
 
 HEADERS = {
     "accept-language": "en-GB,en;q=0.9",
@@ -83,6 +119,7 @@ def get_reviews(soup):
             continue
     
     return reviewlist
+
 def return_dt(ex_string):
     date = datetime.strptime(ex_string.split("on ")[1], "%d %B %Y").date()
     return date
@@ -135,11 +172,35 @@ def plot_to_img():
     img.seek(0)
     return img
 
-def query(payload):
-    response = requests.post(API_URL, headers=summary_headers, json=payload)
-    return response.json()
+def summarize_text_with_gemini(text, gemini_model):
+    """Summarize text using Gemini API"""
+    if not text or len(text.strip()) < 30:
+        return "Not enough text to summarize"
+    
+    if gemini_model is None:
+        return "Gemini API not available. Please check your API key."
+    
+    try:
+        # Create a summarization prompt
+        prompt = f"""
+        Please provide a concise summary of the following product reviews in 2-3 sentences:
+        
+        Reviews:
+        {text[:4000]}  # Limit text length for API
+        
+        Summary:
+        """
+        
+        response = gemini_model.generate_content(prompt)
+        return response.text.strip()
+        
+    except Exception as e:
+        st.error(f"Error in Gemini summarization: {e}")
+        return "Error occurred during summarization"
 
-st.title('Amazon Reviews Analysis')
+def summarize_text(text, summarizer):
+    """Fallback summarization function for compatibility"""
+    return summarize_text_with_gemini(text, summarizer)
 
 # Initialize session state for managing the app's state
 if 'page' not in st.session_state:
@@ -157,7 +218,7 @@ if st.session_state.page == 'input':
         if product_page_url:
             st.session_state.product_page_url = product_page_url
             st.session_state.page = 'analysis'
-            st.experimental_rerun()
+            st.rerun()
         else:
             st.error("Please enter a valid URL")
 
@@ -169,7 +230,9 @@ elif st.session_state.page == 'analysis':
     with st.spinner('Fetching reviews...'):
         reviewlist = []
         review_page_url = get_amazon_review_link(product_page_url)
+        print(review_page_url)
         soup = get_soup(review_page_url)
+        print(soup)
         reviewlist.extend(get_reviews(soup))
 
         for x in range(2, 50):
@@ -184,6 +247,8 @@ elif st.session_state.page == 'analysis':
                 break
 
         df = pd.DataFrame(reviewlist)
+
+        print(df[:5])
 
         df['title'] = df['title'].apply(lambda x: x.split('stars')[1])
         df["date"] = df["date"].apply(return_dt)
@@ -365,22 +430,29 @@ elif st.session_state.page == 'analysis':
         plt.close()
 
         # Summarizing the reviews
-        pos_sum = {"summary_text": ""}
-        neg_sum = {"summary_text": ""}
+        st.subheader("Review Summaries")
+        
+        # Initialize Gemini API
+        gemini_model = init_gemini()
+        
+        if gemini_model is None:
+            st.info("Gemini API not available. Please add your API key in the sidebar to enable AI summarization.")
+        else:
+            st.success("Using Gemini AI for advanced summarization")
+        
+        # Generate summaries
+        pos_summary = "No positive reviews to summarize"
+        neg_summary = "No negative reviews to summarize"
+        
         if len(pos_title) >= 30:
-            pos_sum = query({
-                "inputs": pos_title,
-                "parameters": {"min_length": 30, "max_length": 150},
-            })[0]
+            pos_summary = summarize_text(pos_title, gemini_model)
+            
         if len(neg_title) >= 30:
-            neg_sum = query({
-                "inputs": neg_title,
-                "parameters": {"min_length": 30, "max_length": 150},
-            })[0]
+            neg_summary = summarize_text(neg_title, gemini_model)
 
-        st.subheader("Summarized Positive Reviews")
-        st.write(pos_sum["summary_text"])
+        st.subheader("📝 Summarized Positive Reviews")
+        st.write(pos_summary)
 
-        st.subheader("Summarized Negative Reviews")
-        st.write(neg_sum["summary_text"])
+        st.subheader("📝 Summarized Negative Reviews")
+        st.write(neg_summary)
     
