@@ -185,12 +185,7 @@ elif st.session_state.page == 'analysis':
 
         df = pd.DataFrame(reviewlist)
 
-        df["product"] = df["product"].apply(lambda x: x.split(":")[-1])
-        df["product"] = df["product"].apply(lambda x: x.split(".")[0])
-        df["product"] = df["product"].apply(lambda x: x.split("|")[0])
-        df["product"] = df["product"].apply(lambda x: x.split(",")[0])
-        df["product"] = df["product"].apply(lambda x: x.split("-")[0])
-        df["title"] = df["title"].apply(lambda x: x.split("\n")[1])
+        df['title'] = df['title'].apply(lambda x: x.split('stars')[1])
         df["date"] = df["date"].apply(return_dt)
         df["date"] = pd.to_datetime(df["date"])
         df["title"] = df["title"].astype(str)
