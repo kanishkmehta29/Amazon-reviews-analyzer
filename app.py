@@ -27,7 +27,7 @@ summary_headers = {"Authorization": "Bearer hf_ETcgOZetDOgjCKbWiipJXKXMuGpFvObkn
 HEADERS = {
     "accept-language": "en-GB,en;q=0.9",
     "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.1 Safari/605.1.15",
-    "cookie": "csm-hit=tb:7R3QBMNWE8SYFXDZH8NG+s-XF9JNNT2H1WRDQG8XPN1|1719032135540&t:1719032135540&adb:adblk_no; lc-acbin=en_IN; session-id=262-3584196-0893719; session-id-time=2082787201; session-token=GUa9wnhHx2CXc/5u4+/xGt1K+vSfezkQkGnjBSFU9H3NwPTQWznqaayC0PNB0P1VnxE9zFTpE02ap/foeXzp+g5QV9JfQLavSnBD8+1AJFjaoa8W0600YyYPdlPv6yyZE6c4vEw/MSnMz7GL6AZ+nNOhp0WMm6iqUxCXtkwGAsWqJUpRU4r792pKc1qDugDTfCBZN79fDT4fEUgn+gxm9kI9q/FaAh3f0j6hFRXd7MrCO2fb5RicV0jif5okCxro61ej8p77dW7PZfO2QSzM78/k2py+Qp1+Ke7gqL4zj/Lqxigl0iuKud265FqMLhTuktO4tHmJqVybR1+f6hK+SxXgbIiYUTLePOr163d5aYJjtWczROssJvGWxEsczw7W; i18n-prefs=INR; ubid-acbin=258-0851131-9942451; x-acbin=\"wHLSxB2KChwwnPb6HxWvrQGYE6fY3E9B1@4dViRPaIJ6i?R3AJ7fkKDqiJJj1aMZ\"; at-acbin=Atza|IwEBIA4y3qvs2V7NJj7ZraTh6T_e-aJVbuaZU-sj2tKZpsT4YgkpGMLABjgBHuqJP2CcouOz5T--EDMZebnQN-Hqc70CizSQB2x-oijwQ4c_HVy_oX5T0Gc1aCUhCTSPoZHB5wTtHgVI5LbluQDK8NMJ8Zm80XszMBBUz-rHoIWczUvj7U_lv-Jw7ct_8UhppUjqaOJ2JEvIMNdsHLM7tE5jXodc7-lGwNk7KpibU51tNiGUxA; sess-at-acbin=\"3N5NerSZeKYosEAjuvjxbqtIss2Q/vc8LBpUoutdtU4=\""
+    "cookie": "rxc=AFG+G522GKHoKRjyW34; csm-hit=tb:5HNAZB5RNEC15Z4VEWHW+s-5HNAZB5RNEC15Z4VEWHW|1757335445106&t:1757335445106&adb:adblk_no; rx=AQDAXLqbY9Goo57WLj607QhD6qg=@AanNvmg=; session-token=Okso/9az4i4vAkcWTG0sID2/kq5v79ccDA1AQ+8VR43F3ffjZiFcqT8bQ+AZsTSt3nzzubOYLV+I040XG2acJ/K3RH1tMg78aEr8RdieIjeq2i9+8pbWAawIjYJwJ26qymrWjwtjvSRKAaLqbCb0SLTrhelrqxbu2sClcWKzApDS1MMbwJTZECaw2if1rYQZ5m0Mg1adxXAXR7YFo0z1raYrpFPB+YsTgHG98eXuw9HQiFss56s8zzg04ozRloe2RW2nToWlb3XUT85II3TnoBtzPcWmW9QL2B9eQFXzy51G4D2Puar6r5srDhEXn/WgBuC1didBjj/ObsIziBMmImmbdIRiSMinWzp441gNHJUlHYVdZp+R/tWRS3r5J8ge; x-acbin=\"aRqxlsSuxVq?I8?j1V0644HN@HVCE8BBsDEAsZDrHNXWW@za5rC6SBk0qycbjZa4\"; i18n-prefs=INR; lc-acbin=en_IN; session-id=262-2176739-4923428; session-id-time=2082787201l; ubid-acbin=259-3011315-1017647; at-acbin=Atza|IwEBIBy022gmKKteptph-roN904Kf-haxKccHP5LV5ukOztA9fUSD_XgU1sdhpl8kPnGk8wzKvouFyJI64kE8w8nkyZmn6omXB0RCBmWGosNKjI1Nq3wsGirQqSoNl5aVG24vDVpvJBdFZTtqLG1XOj2mXuEf5ss9PEABS3qZ82svwVUqKLJx55XZIdv_DhK6RSOWhI4UHzyDiNDOA75pZ_2-ghZO-jeJiLjAmX7QPQ54tqNETtutNSUIFyXuonw-4L4AvQ; sess-at-acbin=\"Qb39PFHAgnuMOOz/ohTwDnv/uxgMJD3jOoo1nVl/fT8=\"; sst-acbin=Sst1|PQGTeIPNTB-Wu-b9KBG6m7qECZlcSrOCDNfa4aLfPiIbI4b4pGrsze01TjLU-_2qk9wSpRVEFjXS4SnVGtFVjeRJVyDADmrCmaG66CO7H9CTI38FoxkDP0Yn_ivTbBB80dMkUlcLSyJy7Byfi6GpcTEvZOVw4lRdtYVf893ilmZeq6rz-uR5B_et6Z39ek2byY3dmzXt3-HlTuV4ortKoQIBmsodrwUJi-MgWUQtsFVKNCkVi_HraSTS4qMiY8q4NVKNK9ps_BaPSUySV5sCVv-9Nv7xjXUi56hKvfE4ybUfcHA"
 }
 
 def get_soup(url):
@@ -38,52 +38,50 @@ def get_soup(url):
     return soup
 
 # Function to get review page link
-def get_amazon_review_link(product_page_url):
-    # Send a request to the product page
-    response = requests.get(product_page_url, headers=HEADERS)
+def get_amazon_review_link(product_page_url: str) -> str:
+    # Extract path from the URL
+    path = urlparse(product_page_url).path
     
-    # Check if the request was successful
-    if response.status_code != 200:
-        raise Exception(f"Failed to load page with status code {response.status_code}")
+    # ASINs are 10 characters, usually alphanumeric, starting with B
+    match = re.search(r"/([A-Z0-9]{10})(?:[/?]|$)", path)
     
-    # Parse the HTML content
-    soup = bs(response.content, 'html.parser')
+    if not match:
+        raise ValueError("Could not extract ASIN from the product URL.")
     
-    # Find the link to the reviews page
-    review_link_tag = soup.find('a', {'data-hook': 'see-all-reviews-link-foot'})
+    asin = match.group(1)
     
-    if review_link_tag:
-        review_link = review_link_tag.get('href')
-        # Construct the full URL if necessary
-        if review_link.startswith('/'):
-            review_link = 'https://www.amazon.in' + review_link
-        return review_link
-    else:
-        raise Exception("Could not find the review link on the product page.")
+    # Construct the review URL
+    review_url = f"https://www.amazon.in/product-reviews/{asin}/ref=cm_cr_dp_d_show_all_btm?ie=UTF8&reviewerType=all_reviews"
+    return review_url
 
 def get_reviews(soup):
     reviewlist = []
-    reviews = soup.find_all("div", {"data-hook": "review"})
-    try:
-        for item in reviews:
+    reviews = soup.find_all('li', {'data-hook': 'review'})
+    
+    for item in reviews:
+        try:
+            reviewer = item.find('span', {'class': 'a-profile-name'})
+            title = item.find('a', {'data-hook': 'review-title'})
+            date = item.find('span', {'data-hook': 'review-date'})
+            rating = item.find('i', {'data-hook': 'review-star-rating'}) \
+                     or item.find('i', {'data-hook': 'cmps-review-star-rating'})
+            body = item.find('span', {'data-hook': 'review-body'})
+            verified = item.find('span', {'data-hook': 'avp-badge'})
+            
             review = {
-                "product": soup.title.text.replace(
-                    "Amazon.com:Customer reviews:", ""
-                ).strip(),
-                "title": item.find("a", {"data-hook": "review-title"}).text.strip(),
-                "date": soup.find("span", {"data-hook": "review-date"}).text.strip(),
-                "rating": float(
-                    item.find("i", {"data-hook": "review-star-rating"})
-                    .text.replace("out of 5 stars", "")
-                    .strip()
-                ),
-                "body": item.find("span", {"data-hook": "review-body"}).text.strip(),
+                'reviewer': reviewer.get_text(strip=True) if reviewer else None,
+                'title': title.get_text(strip=True) if title else None,
+                'date': date.get_text(strip=True) if date else None,
+                'rating': float(rating.get_text(strip=True).replace('out of 5 stars', '').strip()) if rating else None,
+                'body': body.get_text(strip=True) if body else None,
+                'verified_purchase': True if verified else False
             }
             reviewlist.append(review)
-    except:
-        pass
+        except Exception as e:
+            print(f"Error parsing review: {e}")
+            continue
+    
     return reviewlist
-
 def return_dt(ex_string):
     date = datetime.strptime(ex_string.split("on ")[1], "%d %B %Y").date()
     return date
