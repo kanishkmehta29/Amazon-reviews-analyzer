@@ -17,6 +17,7 @@ import seaborn as sns
 import streamlit as st
 from datetime import datetime
 import string
+from urllib.parse import urlparse
 
 punctuation = string.punctuation
 
